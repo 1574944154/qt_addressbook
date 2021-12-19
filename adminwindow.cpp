@@ -9,7 +9,7 @@ AdminWindow::AdminWindow(QWidget *parent) :
     ui(new Ui::AdminWindow)
 {
     ui->setupUi(this);
-    users = userController.getUsers();
+    users = userService.getUsers();
     tableViewDisplay();
 }
 
@@ -21,7 +21,7 @@ AdminWindow::~AdminWindow()
 
 void AdminWindow::tableViewDisplay()
 {
-    users = userController.getUsers();
+    users = userService.getUsers();
     QStandardItemModel *model = new QStandardItemModel(ui->tableView);
     model->setColumnCount(3);
     model->setHeaderData(0, Qt::Horizontal, "id");
@@ -50,7 +50,7 @@ void AdminWindow::on_pushButton_2_clicked()
     }else
     {
         int id = model->index(row, 0, QModelIndex()).data().toInt();
-        bool res = userController.deleteUserById(id);
+        bool res = userService.deleteUserById(id);
         if(res){
             QMessageBox::information(this, "提示", "删除成功");
             tableViewDisplay();
@@ -62,7 +62,7 @@ void AdminWindow::on_pushButton_2_clicked()
 
 void AdminWindow::addUser(User user)
 {
-    if(userController.addUser(user))
+    if(userService.addUser(user))
     {
         QMessageBox::information(this, "提示", "添加成功");
         tableViewDisplay();

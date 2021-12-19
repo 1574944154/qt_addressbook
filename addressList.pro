@@ -20,16 +20,16 @@ SOURCES += \
     adduserdialog.cpp \
     adminwindow.cpp \
     department.cpp \
-    departmentcontroller.cpp \
     departmentmapper.cpp \
+    departmentservice.cpp \
     loginwindow.cpp \
     main.cpp \
     person.cpp \
-    personcontroller.cpp \
     personmapper.cpp \
+    personservice.cpp \
     user.cpp \
-    usercontroller.cpp \
     usermapper.cpp \
+    userservice.cpp \
     userwindow.cpp
 
 HEADERS += \
@@ -37,15 +37,15 @@ HEADERS += \
     adduserdialog.h \
     adminwindow.h \
     department.h \
-    departmentcontroller.h \
     departmentmapper.h \
+    departmentservice.h \
     loginwindow.h \
     person.h \
-    personcontroller.h \
     personmapper.h \
+    personservice.h \
     user.h \
-    usercontroller.h \
     usermapper.h \
+    userservice.h \
     userwindow.h
 
 FORMS += \

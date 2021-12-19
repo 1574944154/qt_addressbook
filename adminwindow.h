@@ -6,7 +6,7 @@
 
 #include "userwindow.h"
 #include "user.h"
-#include "usercontroller.h"
+#include "userservice.h"
 #include "adduserdialog.h"
 
 namespace Ui {
@@ -36,7 +36,7 @@ private:
     Ui::AdminWindow *ui;
     QList<User> *users;
 
-    UserController userController;
+    UserService userService;
 
 };
 

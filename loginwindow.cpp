@@ -12,14 +12,14 @@ LoginWindow::LoginWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::LoginWindow)
 {
+
     ui->setupUi(this);
-//    userWindow = new UserWindow(this, userMapper.getUserByUsername("1574944154"));
-//    this->hide();
-//    userWindow->show();
+
 }
 
 LoginWindow::~LoginWindow()
 {
+    database.close();
     delete ui;
 }
 
@@ -27,7 +27,7 @@ void LoginWindow::on_loginButton_clicked()
 {
     QString username = ui->usernameEdit->text();
     QString password = ui->passwordEdit->text();
-    User *user = userController.login(username, password);
+    User *user = userService.login(username, password);
     if(user==NULL)
     {
         QMessageBox::information(this, "提示", "登录失败");
@@ -48,5 +48,19 @@ void LoginWindow::on_loginButton_clicked()
             userWindow->show();
         }
 
+    }
+}
+
+
+void LoginWindow::openDatabase(QString databaseName)
+{
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName(databaseName);
+    if(!database.open())
+    {
+        qDebug() << "error: fail to open database.";
+        exit(1);
+    }else {
+        qDebug() << "success to open database.";
     }
 }

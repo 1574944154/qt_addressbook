@@ -2,10 +2,10 @@
 #define LOGINWINDOW_H
 
 #include <QMainWindow>
-#include <usercontroller.h>
+#include <userservice.h>
+#include <QtSql>
 
 #include "userwindow.h"
-#include "usermapper.h"
 #include "adminwindow.h"
 
 namespace Ui {
@@ -25,12 +25,12 @@ private slots:
     void on_loginButton_clicked();
 
 private:
+    void openDatabase(QString databaseName);
+    QSqlDatabase database;
     Ui::LoginWindow *ui;
-    UserController userController;
+    UserService userService;
     UserWindow *userWindow;
     AdminWindow *adminWindow;
-
-    UserMapper userMapper;
 };
 
 #endif // LOGINWINDOW_H

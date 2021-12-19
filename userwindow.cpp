@@ -15,9 +15,9 @@ UserWindow::UserWindow(QWidget *parent, User *user) :
     user(user)
 {
     ui->setupUi(this);
-    departments = departmentController.getDepartments();
+    departments = departmentService.getDepartments();
     createMenus();
-    tableViewDisplay(personController.getPersonsByUserId(user->getId()));
+    tableViewDisplay(personService.getPersonsByUserId(user->getId()));
     setComboBox();
 }
 
@@ -72,7 +72,8 @@ void UserWindow::on_pushButton_clicked()
     }
     else
     {
-        QList<Person> *persons = personMapper.getPersonsByUserIdAndKeyWord(user->getId(), keyWord);
+//        QList<Person> *persons = personMapper.getPersonsByUserIdAndKeyWord(user->getId(), keyWord);
+        QList<Person> *persons = personService.getPersonsByUserIdAndKeyWord(user->getId(), keyWord);
         tableViewDisplay(persons);
     }
 }
@@ -80,10 +81,10 @@ void UserWindow::on_pushButton_clicked()
 void UserWindow::on_comboBox_currentIndexChanged(const QString &departmentName)
 {
     if(departmentName=="ALL") {
-        tableViewDisplay(personController.getPersonsByUserId(user->getId()));
+        tableViewDisplay(personService.getPersonsByUserId(user->getId()));
     }else{
         int departmentId  = findDepartmentIdByDepartmentName(departmentName);
-        tableViewDisplay(personController.getPersonsByUserIdAndDepartmentId(user->getId(), departmentId));
+        tableViewDisplay(personService.getPersonsByUserIdAndDepartmentId(user->getId(), departmentId));
     }
 }
 
@@ -100,7 +101,7 @@ void UserWindow::on_deleteButton_clicked()
     }else{
         int id = model->index(row, 0, QModelIndex()).data().toInt();
         qDebug() << id;
-        bool res = personController.deletePersonById(id);
+        bool res = personService.deletePersonById(id);
         if(res){
             QMessageBox::information(this, "提示", "删除成功");
             tableViewReload();
@@ -112,14 +113,14 @@ void UserWindow::on_deleteButton_clicked()
 
 void UserWindow::tableViewReload()
 {
-    tableViewDisplay(personController.getPersons());
+    tableViewDisplay(personService.getPersons());
 }
 
 void UserWindow::on_addButton_clicked()
 {
     addPersonDialog = new AddPersonDialog(this);
     connect(addPersonDialog, &AddPersonDialog::addPerson, this, &UserWindow::addPerson);
-    QList<Department> *departments = departmentController.getDepartments();
+    QList<Department> *departments = departmentService.getDepartments();
     addPersonDialog->setDepartments(departments);
     addPersonDialog->setComboBox();
     addPersonDialog->show();
@@ -128,14 +129,12 @@ void UserWindow::on_addButton_clicked()
 void UserWindow::addPerson(Person person)
 {
     person.setUserId(user->getId());
-    bool res = personMapper.insertPerson(person);
-    if(!res)
-    {
+    bool res = personService.addPerson(person);
+    if(!res){
         QMessageBox::information(this, "警告", "添加失败");
-        return;
     }else{
         QMessageBox::information(this, "提示", "添加成功");
-        tableViewDisplay(personMapper.getPersonsByUserId(user->getId()));
+        tableViewDisplay(personService.getPersonsByUserId(user->getId()));
     }
 }
 

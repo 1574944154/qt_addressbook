@@ -4,10 +4,10 @@
 #include "person.h"
 
 
-class PersonController
+class PersonService
 {
 public:
-    PersonController();
+    PersonService();
     Person* getPersonById(int id);
     bool addPerson(Person person);
     bool deletePersonById(int id);

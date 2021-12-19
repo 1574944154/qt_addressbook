@@ -4,11 +4,10 @@
 #include <QMainWindow>
 #include "user.h"
 #include "person.h"
-#include "personmapper.h"
 #include <QList>
 #include "addpersondialog.h"
-#include "personcontroller.h"
-#include "departmentcontroller.h"
+#include "personservice.h"
+#include "departmentservice.h"
 
 namespace Ui {
 class UserWindow;
@@ -46,9 +45,8 @@ private:
     User *user;
     QList<Department> *departments;
     AddPersonDialog *addPersonDialog;
-    PersonMapper personMapper;
-    PersonController personController;
-    DepartmentController departmentController;
+    PersonService personService;
+    DepartmentService departmentService;
 };
 
 #endif // USERWINDOW_H

@@ -4,10 +4,10 @@
 #include"usermapper.h"
 #include"personmapper.h"
 
-class UserController
+class UserService
 {
 public:
-    UserController();
+    UserService();
 
     User* login(QString, QString);
 

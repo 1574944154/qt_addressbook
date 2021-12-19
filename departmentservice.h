@@ -3,10 +3,10 @@
 #include "department.h"
 #include "departmentmapper.h"
 
-class DepartmentController
+class DepartmentService
 {
 public:
-    DepartmentController();
+    DepartmentService();
     QList<Department>* getDepartments();
 
 private:
